@@ -2,6 +2,7 @@ import math
 import random
 import pygame
 
+#This is my first step with AI, i used 3Blue1Brown Video for the theory, i hope i will continue this way, (update test)
 
 background_colour = (255,255,255)
 (width, height) = (300, 200)
