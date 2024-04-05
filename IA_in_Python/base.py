@@ -56,13 +56,13 @@ for neuron_index, neuron in enumerate(layers[INPUT_LAYER]):
    print("LAYER: 1,  Neuron "+str(neuron_index+1)+", activation= " + str(neuron[ACTIVATION])+"   weight= "+str(neuron[WEIGHT])+"\n")
 
 
-for neuron in layers[HIDDEN_LAYER]:
+for neuron_index, neuron in enumerate(layers[HIDDEN_LAYER]):
     neuron[ACTIVATION] = calculate_neuron_activation(HIDDEN_LAYER, bias)
 
     print("LAYER: 2,  Neuron "+str(neuron_index+1)+", activation= " + str(neuron[ACTIVATION])+"   weight= "+str(neuron[WEIGHT])+"\n")
 
 
-for neuron in layers[OUTPUT_LAYER]:
+for neuron_index, neuron in enumerate(layers[OUTPUT_LAYER]):
     neuron[ACTIVATION] = calculate_neuron_activation(OUTPUT_LAYER, bias)
 
     print("LAYER: 3,  Neuron "+str(neuron_index+1)+", activation= " + str(neuron[ACTIVATION])+"   weight= "+str(neuron[WEIGHT])+"\n")
