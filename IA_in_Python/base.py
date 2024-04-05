@@ -4,10 +4,12 @@ import pygame
 
 #This is my first step with AI, i used 3Blue1Brown Video for the theory, i hope i will continue this way, (update test)
 
-background_colour = (255,255,255)
-(width, height) = (300, 200)
+pygame.init()
+
+background_colour = (255, 255, 255)
+(width, height) = (1200, 1000)
 screen = pygame.display.set_mode((width, height))
-pygame.display.set_caption('Tutorial 1')
+pygame.display.set_caption('Neural Network Display')
 screen.fill(background_colour)
 
 ACTIVATION = 1
@@ -16,6 +18,36 @@ WEIGHT = 0
 
 def sigmoid(x):
     return 1 / (1 + math.exp(-x))
+
+
+def draw_neuron(x, y, activation, radius):
+    color = (0, 0, 0)  
+    if activation < 0.5:
+        color = (200, 200, 200)  
+    pygame.draw.circle(screen, color, (x, y), radius)
+    font = pygame.font.SysFont(None, 24)
+    text = font.render(str(round(activation, 2)), True, (0, 0, 0))
+    screen.blit(text, (x - 10, y - 10))
+
+
+def draw_connection(x1, y1, x2, y2):
+    pygame.draw.line(screen, (0, 0, 0), (x1, y1), (x2, y2), 2)
+
+
+def draw_network(layers, radius):
+    layer_spacing = width / (len(layers) + 1)
+    neuron_spacing = height / (max(len(layer) for layer in layers) + 1)
+    
+    for i, layer in enumerate(layers):
+        x = (i + 1) * layer_spacing
+        for j, neuron in enumerate(layer):
+            y = (j + 1) * neuron_spacing
+            draw_neuron(int(x), int(y), neuron[ACTIVATION],radius)
+            if i > 0:
+                for k, prev_neuron in enumerate(layers[i - 1]):
+                    prev_y = (k + 1) * neuron_spacing
+                    draw_connection(int(x), int(y), int(x - layer_spacing), int(prev_y))
+
 
 def calculate_neuron_activation(neuron_layer, bias):
     weighted_sum = 0
@@ -69,10 +101,18 @@ for neuron_index, neuron in enumerate(layers[OUTPUT_LAYER]):
     print("LAYER: 3,  Neuron "+str(neuron_index+1)+", activation= " + str(neuron[ACTIVATION])+"   weight= "+str(neuron[WEIGHT])+"\n")
 
 
+screen.fill(background_colour)
+draw_network(layers, 7)
 
 pygame.display.flip()
 running = True
 while running:
-  for event in pygame.event.get():
-    if event.type == pygame.QUIT:
-      running = False
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+
+    #screen.fill(background_colour)
+    #draw_network(layers, 7)
+    pygame.display.flip()
+
+pygame.quit()
