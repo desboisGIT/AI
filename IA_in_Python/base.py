@@ -21,13 +21,11 @@ def sigmoid(x):
 
 
 def draw_neuron(x, y, activation, radius):
-    color = (0, 0, 0)  
-    if activation < 0.5:
-        color = (200, 200, 200)  
+    color = (0, activation*255, 0)  
     pygame.draw.circle(screen, color, (x, y), radius)
     font = pygame.font.SysFont(None, 24)
-    text = font.render(str(round(activation, 2)), True, (0, 0, 0))
-    screen.blit(text, (x - 10, y - 10))
+    text = font.render(str(round(activation, 2)), True, (255, 0, 0))
+    screen.blit(text, (x - 12, y - 32))
 
 
 def draw_connection(x1, y1, x2, y2):
